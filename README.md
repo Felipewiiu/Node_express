@@ -23,3 +23,9 @@
 
 ## Passo a passo para a conexão com mongodb
 
+1- Importe o mongoose no arquivo criado dbConection
+
+2- Use o a função `mongoose.connect()` pasando a string de conexão
+
+## Padrão de projeto
+
