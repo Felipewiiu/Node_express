@@ -1,5 +1,6 @@
 import express from "express";
 import livros from './livrosRoutes.js'
+import autores from './autoresRoutes.js'
 
 const routes = (app) => {// o parâmetro app está recebendo o express() do arquivo app.js
     app.route('/').get((req, res) =>{
@@ -8,7 +9,8 @@ const routes = (app) => {// o parâmetro app está recebendo o express() do arqu
 
     app.use(
         express.json(),
-        livros
+        livros,
+        autores
     )
 }
 

@@ -27,5 +27,48 @@
 
 2- Use o a função `mongoose.connect()` pasando a string de conexão
 
-## Padrão de projeto
+## Padrão de projeto MVC
+
+## Associando dados entre Schemas
+
+Para fazer a associação de dados estre Schemas basta no tipo ser referenciado como ` mongoose.Schema.Types.ObjectId`. exemplo:
+
+```
+ {
+        id: { type: String },
+        titulo: { type: String, required: true },
+      `  autor: { type: mongoose.Schema.Types.ObjectId,ref : 'autores', required: true },`
+        editora: { type: String, required: true },
+        numeroPaginas: { type: Number }
+    }
+-------------------------------------------------------------------------------------------
+     static listarLivros = (req, res) => {
+            livros.find()
+            .populate('autor')
+            .exec((err, livros) => {
+            res.status(200).json(livros)
+        })
+    }
+```
+
+## Query params
+
+Os query params, ou parâmetros de consulta, são um conjunto definido de parâmetros anexados ao final de uma URL. Os query params são aquelas extensões da URL que ficam após o '?' e ajudam a definir um conteúdo ou ações com base nos dados passados.
+
+Para adicionar vários parâmetros, um '&' é adicionado entre cada um. Eles podem ser criados por qualquer variação de tipos ou comprimentos de objetos, como String, Arrays e Numbers. Segue um exemplo:
+
+Vamos supor que você construa uma requisição com req.query da seguinte maneira
+
+```
+app.get('/users', (req, res) => {
+     const nomeDoUsuario = req.query.nome;
+     res.json({ nome: `${nomeDoUsuario} `});
+});
+
+```
+
+
+
+
+
 
