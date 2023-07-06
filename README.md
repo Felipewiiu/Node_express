@@ -8,6 +8,8 @@
 
 + mongoose -- Comando de instalação `npm install mongoose@6.2.6`
 
++ Dotenv --  Comando de instalação `npm i dotenv@16.0.3`
+
 ## Links de documentações
 
 > Mongoose - `https://mongoosejs.com/docs/guides.html`
