@@ -77,11 +77,29 @@ app.get('/users', (req, res) => {
 
 ## Tratamento de erro 
 
+O mongoose possui formas de se acessar parâmetros de erros como o ` erro instanceof mongoose.CastError`, dando um console.log nesse "erro" conseguimos acessar um arrey que contém um conjunto erros que podem ser utilizados e personalisados em mensagens. 
+
+Exemplo de utilização:
+
+```
+ else if (erro instanceof mongoose.Error.ValidationError) {// para erro de validação
+    const mensagemErros = Object.values(erro.errors)
+      .map(erro => erro.message)
+      .join("; ");
+    console.log(Object.values);
+    res.status(400).send({ message: `Os seguintes erros foram encontrados ${mensagemErros}` });
+
+  }
+```
+
+
 ## Middlewares do Express
 
 Middleware é um componente intermediário que processa as requisições entre o cliente e o servidor. Ele desempenha um papel importante na manipulação das solicitações e respostas da API, permitindo que várias funcionalidades sejam adicionadas de forma modular e flexível.
 
 O middleware atua como uma camada de software entre as partes envolvidas na comunicação da API, como o cliente que faz a requisição e o servidor que processa essa requisição. Ele pode ser responsável por uma variedade de tarefas, como autenticação, autorização, manipulação de erros, registro de logs, compressão de dados, transformação de dados, entre outras.
+
+
 
 
 
