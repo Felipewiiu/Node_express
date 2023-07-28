@@ -2,6 +2,8 @@ import express from "express";
 import db from "./config/dbConect.js";
 import routes from "./routes/index.js";
 import manipuladorDeErros from "./middlewares/manipuladorDeErros.js";
+import manipulador404 from "./middlewares/manipulador404.js";
+
 
 
 
@@ -21,6 +23,8 @@ app.get("/livros", (req, res, next) => {
 });
 
 routes(app);
+
+app.use(manipulador404);
 
 // aqui fica a construção do Middlewares do Express
 

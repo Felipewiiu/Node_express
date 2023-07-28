@@ -99,6 +99,18 @@ Middleware é um componente intermediário que processa as requisições entre o
 
 O middleware atua como uma camada de software entre as partes envolvidas na comunicação da API, como o cliente que faz a requisição e o servidor que processa essa requisição. Ele pode ser responsável por uma variedade de tarefas, como autenticação, autorização, manipulação de erros, registro de logs, compressão de dados, transformação de dados, entre outras.
 
+## Validadores nativos do mongoose
+
+Para se definir um limite mínimo ou máximo de valores, no modelo de dados `livrosSchema` dá para se usar um recurso min e max como no exemplo:
+
+```
+  numeroPaginas: {
+      type: Number,
+      min: 10,
+      max: 5000
+    }
+```
+
 
 
 
