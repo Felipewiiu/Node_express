@@ -112,6 +112,29 @@ Para se definir um limite mínimo ou máximo de valores, no modelo de dados `liv
 ```
 
 
+## Validação global, como implementar?
+
+Para isso é preciso criar um arquivo chamado `index.js` na parta de `models` e importar os arquivos de `Autor.js` e
+`Livro.js` para dentro do arquivo index e no final exporta-lo, para poder ser utilizado na pasta de controllers.
+
+Depois é preciso criar um arquivo chamado `validadorGlobal`, por exemplo, dentro da pasta de models e lá importar o Mongoose
+para poder definir uma propriedade para todos os campos de strings dos modelos como no exemplo abaixo:
+
+```
+mongoose.Schema.Types.String.set("validate", {
+  validator: (valor) => valor !== "",
+  message: ({ path }) => `O campo ${path} foi fornecido em branco.`
+});
+```
+
+ -- O nome da propriedade que vai como parâmetro no método set é `validate`
+ -- O segundo parâmetro vai ser o valor da propriedade que vai ser um objeto com a propriedade `validator` com seu valor
+    recebendo uma arrow function com a condição da validação.
+
+
+
+
+
 
 
 

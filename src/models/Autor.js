@@ -5,7 +5,7 @@ const AutorSchema = new mongoose.Schema({
   nome: {
     type: String, required: [true, "O nome da autor(a) é obrigatório"]
   },
-  nacionalidade: {type: String, required: [true, "A nacionalidade é obrigatóia"]}
+  nacionalidade: {type: String}
 },
 {
   versionKey: false // isso verciona seu modelo, 
