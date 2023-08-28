@@ -132,6 +132,31 @@ mongoose.Schema.Types.String.set("validate", {
     recebendo uma arrow function com a condição da validação.
 
 
+## Criando busca dinâmica 
+
+Busca dinâmica aceita encontrar um ou mais valores utilizando as querys. A baixo segue um exemplo de sua estrutura.
+
+```
+static listarLivrosPorFiltro = async (req, res, next) => {
+    try {
+      const {editora, titulo} = req.query;
+
+      const busca = {};
+
+      if (editora) busca.editora = editora;
+      if (titulo) busca.titulo = titulo;
+
+      const livrosResultado = await livros.find(busca);
+
+      res.status(200).send(livrosResultado);
+    } catch (erro) {
+      next(erro);
+    }
+  };
+```
+ -- A variável busca recebe um objeto vazio que posteriormente vai ser populado com os parâmetros que vierem da requisição
+    quando passarem pela verificação de exixtência dos `ifs`, desta maneira pode se passar o valor editora ou título como
+    parâmetro de busca nas requisições `GET`
 
 
 
