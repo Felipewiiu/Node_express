@@ -158,6 +158,33 @@ static listarLivrosPorFiltro = async (req, res, next) => {
     quando passarem pela verificação de exixtência dos `ifs`, desta maneira pode se passar o valor editora ou título como
     parâmetro de busca nas requisições `GET`
 
+## Criando uma regex case sensitive
+
+Para criar uma busca genérica, vamos utilizar a fução construtora do javascript `RegExp` recebendo como argumento 
+o titulo e a letra `i`, que tem a função de ser case sensitive.
+
+```
+ try {
+      const {editora, titulo} = req.query;
+
+      const regex = new RegExp(titulo, "i");
+
+      const busca = {};
+
+      if (editora) busca.editora = editora;
+      if (titulo) busca.titulo = regex;
+
+      const livrosResultado = await livros.find(busca);
+
+      res.status(200).send(livrosResultado);
+    }
+```
+
+
+## Operadores de busca do mongo DB
+
+
+
 
 
 
