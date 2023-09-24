@@ -183,6 +183,14 @@ o titulo e a letra `i`, que tem a função de ser case sensitive.
 
 ## Operadores de busca do mongo DB
 
+Existem vários tipos de operedores no mongo DB, podemos destacar:
+
+- $gte --> Corresponde a valores maiores ou iguais a um valor especificado.
+
+- $lte --> Corresponde a valores menores ou iguais a um valor especificado.
+
+- $eq  --> Corresponde a valores iguais a um valor especificado.
+
 
 
 

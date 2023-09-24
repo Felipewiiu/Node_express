@@ -31,12 +31,12 @@ class LivroController {
     try {
       const id = req.params.id;
 
-      const livrosResultado = await livros.findByIdAndUpdate(id, {$set: req.body});
+      const livrosResultado = await livros.findByIdAndUpdate(id, { $set: req.body });
 
-      if(livrosResultado !== null) {
-        res.status(200).send({message: "Livro atualizado com sucesso"});
+      if (livrosResultado !== null) {
+        res.status(200).send({ message: "Livro atualizado com sucesso" });
 
-      }else{
+      } else {
         next(new NaoEncontrado("ID do livro não localizadoo"));
       }
 
@@ -53,10 +53,10 @@ class LivroController {
         .populate("autor", "nome")
         .exec();
 
-      if (livroResultados !== null){
+      if (livroResultados !== null) {
         res.status(200).send(livroResultados);
 
-      }else{
+      } else {
         next(new NaoEncontrado("Livro não localizado"));
       }
 
@@ -71,9 +71,9 @@ class LivroController {
 
       const livroResultado = await livros.findByIdAndDelete(id);
 
-      if(livroResultado !== null) {
-        res.status(200).send({message: "Livro removido com sucesso"});
-      }else{
+      if (livroResultado !== null) {
+        res.status(200).send({ message: "Livro removido com sucesso" });
+      } else {
         next(new NaoEncontrado("O livro que você deseja deletar não existe"));
       }
 
@@ -84,13 +84,7 @@ class LivroController {
 
   static listarLivrosPorFiltro = async (req, res, next) => {
     try {
-      const {editora, titulo} = req.query;
-
-
-      const busca = {};
-
-      if (editora) busca.editora = editora;
-      if (titulo) busca.titulo = { $regex: titulo, $options: "i" };
+      const busca = processaBusca(req.query);
 
       const livrosResultado = await livros.find(busca);
 
@@ -101,5 +95,25 @@ class LivroController {
   };
 }
 
+
+function processaBusca(paraetros) {
+  const { editora, titulo, minPaginas, maxPaginas } = paraetros;
+
+
+  const busca = {};
+
+  if (editora) busca.editora = editora;
+  if (titulo) busca.titulo = { $regex: titulo, $options: "i" };
+
+  if(minPaginas || maxPaginas)  busca.numeroPaginas = {};
+
+  // gte = Greater Than Equal = Maior ou Igual
+  if (minPaginas) busca.numeroPaginas.$gte = minPaginas;
+
+  // lte = Less Than or Equal = Menor ou igual que
+  if (maxPaginas) busca.numeroPaginas.$lte = maxPaginas;
+
+  return busca;
+}
 
 export default LivroController;
