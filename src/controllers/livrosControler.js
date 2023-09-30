@@ -1,5 +1,5 @@
 import NaoEncontrado from "../erros/NaoEncontrado.js";
-import { livros } from "../models/index.js";
+import { autores, livros } from "../models/index.js";
 
 class LivroController {
   static listarLivros = async (req, res, next) => {
@@ -84,11 +84,18 @@ class LivroController {
 
   static listarLivrosPorFiltro = async (req, res, next) => {
     try {
-      const busca = processaBusca(req.query);
+      const busca = await processaBusca(req.query);
 
-      const livrosResultado = await livros.find(busca);
+      if (busca !== null) {
+        const livrosResultado = await livros
+          .find(busca)
+          .populate("autor");
+        // o populate server para preencher referência em um documento.
+        res.status(200).send(livrosResultado);
+      } else {
+        res.status(200).send([]);
+      }
 
-      res.status(200).send(livrosResultado);
     } catch (erro) {
       next(erro);
     }
@@ -96,22 +103,34 @@ class LivroController {
 }
 
 
-function processaBusca(paraetros) {
-  const { editora, titulo, minPaginas, maxPaginas } = paraetros;
+async function processaBusca(parametros) {
+  const { editora, titulo, minPaginas, maxPaginas, nomeAutor } = parametros;
 
 
-  const busca = {};
+  let busca = {};
 
   if (editora) busca.editora = editora;
   if (titulo) busca.titulo = { $regex: titulo, $options: "i" };
 
-  if(minPaginas || maxPaginas)  busca.numeroPaginas = {};
+  if (minPaginas || maxPaginas) busca.numeroPaginas = {};
 
   // gte = Greater Than Equal = Maior ou Igual
   if (minPaginas) busca.numeroPaginas.$gte = minPaginas;
 
   // lte = Less Than or Equal = Menor ou igual que
   if (maxPaginas) busca.numeroPaginas.$lte = maxPaginas;
+
+  if (nomeAutor) {
+    const autor = await autores.findOne({ nome: nomeAutor });
+
+    if (autor !== null) {
+      busca.autor = autor._id;
+
+    } else {
+      busca = null;
+    }
+
+  }
 
   return busca;
 }
