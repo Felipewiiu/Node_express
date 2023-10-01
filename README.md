@@ -191,6 +191,27 @@ Existem vários tipos de operedores no mongo DB, podemos destacar:
 
 - $eq  --> Corresponde a valores iguais a um valor especificado.
 
+## Trabalhando com paginação
+
+- `skip()` -->  O skip é um método que permite pular um número específico de documentos ao realizar uma consulta no banco de dados.Quando você executa uma consulta usando o método skip(), você pode pular um determinado número de documentos (especificado como argumento para o método) e começar a recuperar os documentos a partir do próximo documento na sequência.
+
+- `limit()` --> O método limit() é usado para limitar o número de documentos que serão retornados em uma consulta ao banco de dados MongoDB. É frequentemente utilizado em conjunto com o método find() para controlar a quantidade de resultados que você deseja recuperar.
+
+## Ordenação de resultados.
+
+No Mongoose, o método sort() é utilizado para ordenar os resultados de uma consulta ao banco de dados MongoDB. Ele permite que você especifique a ordem na qual os documentos devem ser retornados com base em um ou mais campos. O método sort() é análogo à cláusula ORDER BY em SQL e é frequentemente usado em conjunto com o método find() para personalizar a ordenação dos resultados.
+
+O mongoDb aceita os valores (-1 ou 1) para ordenar de forma crescente ou decrescente seus resultados de acordo com os seus campos.
+
+Exemplo:
+
+```
+.sort({_id: -1})
+```
+
+
+
+
 
 
 
